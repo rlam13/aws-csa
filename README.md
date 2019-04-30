@@ -48,6 +48,7 @@ Has cross zone balancing
 Has SSL termination (Jan 2019)
 
 
+![alt text](https://github.com/rlam13/AWS-Cloud-Solutions-Architect/blob/master/screenshots/load_balancer_security_groups.png)
 
   
 **ASG**  
