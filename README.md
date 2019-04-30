@@ -50,6 +50,17 @@ Has SSL termination (Jan 2019)
 *Restrict access to the EC2 instance by limiting security group source from the load balancer:*
 ![alt text](https://github.com/rlam13/AWS-Cloud-Solutions-Architect/blob/master/screenshots/load_balancer_security_groups.png)
 
+* SSL Certificates on load balancer  
+The load balancer uses a X.509 certificate (SSL/TLS server certificate)  
+Manage certificates using AWS Certificate Manager (ACM)  
+Alternatively create/upload own certificates
+  
+HTTPS listener:  
+Must specify default certificate  
+Optional - add list of certs to support multiple domains
+Clients can use Server Name Indication (SNI) to specify the hostname they reach  
+Able to specify security policy to support older versions of SSL/TLS (for legacy clients)  
+
   
 **ASG**  
 ASG Default Termination Policy:  
