@@ -45,9 +45,9 @@ Support dynamic host port mapping with ECS
 Public facing: must attach Elastic IP - can help whitelist by clients  
 Private facing: will get random private IP base on free ones at time of creation  
 Has cross zone balancing  
-Has SSL termination (Jan 2019)
-
-Restrict access to the EC2 instance by limiting security group source from the load balancer:  
+Has SSL termination (Jan 2019)  
+  
+*Restrict access to the EC2 instance by limiting security group source from the load balancer:*
 ![alt text](https://github.com/rlam13/AWS-Cloud-Solutions-Architect/blob/master/screenshots/load_balancer_security_groups.png)
 
   
