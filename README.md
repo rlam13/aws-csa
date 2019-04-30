@@ -45,5 +45,13 @@ Support dynamic host port mapping with ECS
 Public facing: must attach Elastic IP - can help whitelist by clients  
 Private facing: will get random private IP base on free ones at time of creation  
 Has cross zone balancing  
-Has SSL termination (Jan 2019)  
+Has SSL termination (Jan 2019)
+
+
+
+  
+**ASG**  
+ASG Default Termination Policy:  
+1. Find AZ with most instances
+2. If multiple instances in AZ, delete the one with oldest launch configuration  
   
