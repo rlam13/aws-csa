@@ -9,4 +9,11 @@ My AWS Cloud Solutions Architect study notes
 * Public IP (obvious)
   * Elastic IP (same as public IP, but consistent IP between stop and starts)
 * Private IP (obvious)
-
+ 
+* EC2 launch modes
+  * on demand
+  * reserved
+  * spot instances
+  * dedicated
+  
+  
