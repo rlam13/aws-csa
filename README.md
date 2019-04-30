@@ -3,7 +3,7 @@ My AWS Cloud Solutions Architect study notes
 
 ## Services
 
-**EC2**
+**EC2**  
 Timeout isses => security groups configuration?  
 Security groups can reference other security groups instead of ip ranges  
 Public IP (obvious)  
