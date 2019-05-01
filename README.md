@@ -3,6 +3,8 @@ My AWS Cloud Solutions Architect study notes
 
 ## Services
 
+**Primary ones to focus on:  VPC, EC2, S3, EBS, ECS, LAMBDA, API, AutoScaling**
+
 **EC2**  
 Timeout isses => security groups configuration?  
 Security groups can reference other security groups instead of ip ranges  
