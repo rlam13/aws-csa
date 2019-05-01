@@ -67,3 +67,9 @@ ASG Default Termination Policy:
 1. Find AZ with most instances
 2. If multiple instances in AZ, delete the one with oldest launch configuration  
   
+* Scaling cooldown  
+Ensures that ASG doesn't launch/terminate instances before previous scaling activity  
+In addition to default cooldown -> create cooldowns that apply to specific scaling policy  
+Default cooldown period is 300 seconds, can reduce down to reduce scale-in policy  
+If multiple scale out/in during an hours, modifty ASG cool-down timer and CloudWatch alarm period that triggers scale in  
+
