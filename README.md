@@ -158,5 +158,34 @@ SASL authentication (no IAM)
 **Redis**  
 RedisAUTH (username/password) (no IAM)  
 SSL in-flight encryption must be enabled and used  
-
-
+  
+**Route 53**  
+Most common records to know:  
+* A: URL to IPv4
+* AAAA: URL to IPv6
+* CNAME: URL to URL
+* Alias: URL to AWS resource
+    
+TTL (Time to Live)  
+High TTL (24hr)  
+* Less traffic on DNS
+* Possibly outdated records  
+  
+Low TTL (60s)
+* more traffic on DNS  
+* records are outdated for less time
+* easy to change records
+  
+TTL is mandatory for each DNS record  
+  
+* AWS Resources (load balancers, cloudfront, etc) expose AWS URL:  
+lbl-us-west-1.elb.amazonaws.com but you want it to appear as mycoolapp.cooldomain.com  
+  
+* CNAME:  
+Points URL to another URL (mycoolapp.cooldomain.com >> somethingelse.com)  
+Works only for NON ROOT DOMAIN ( mycoolapp.cooldomain.com)
+  
+* Alias:
+Points a URL to AWS resource (mycoolapp.cooldomain.com >> somethingelse.amazonaws.com)
+Works for ROOT DOMAIN and NON ROOT DOMAIN.  (aka cooldomain.com)
+  
