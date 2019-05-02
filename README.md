@@ -196,13 +196,31 @@ Cannot attach health checks to Simple Routing Policy
 If multiple values are returned, random one chosen by client  
   
 * Weighted Routing Policy  
-Control the percentage of request to a specific endpoint  
+Route traffic to multiple resources in proportions you specify
 Helpful to test percentage of traffic on a new app version, if needed  
 Can split traffic between two regions  
 Can be associated with health checks  
   
 * Latency Routing Policy
 Redirect to the server that has the least latency  
-Beneficial when latency of users is a priority  
-Latency determined by user to designated AWS Region  
-** Germany could be directed to the US, if that's the lower latency
+Latency determined by user to designated AWS Region
+  - Germany could be directed to the US, if that's the lower latency  
+
+* Health Checks  
+Have X health checks failed - unhealthy (default 3)  
+After X health checks passed - healthy (default 3)  
+Default health check interval: 30s (can set to 10s - costs more)  
+Approximately 15 health checkers will check the endpoint health  
+Can use HTTP/TCP and HTTPS health checks (no SSL verification)  
+Possibility of integrating health check with CloudWatch 
+  
+Health checks can be linked to Route53 DNS queries  
+  
+* Failover Routing Policy  
+For active/passive failover  
+  
+* Geo Location Routing Policy  
+Routing based on user location (different from latency based)  
+  
+* Multivalue Answer Routing Policy  
+Deploy when you want Route 53 to respond to DNS queries with up to eight healthy records selected at random 
