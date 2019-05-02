@@ -189,3 +189,20 @@ Works only for NON ROOT DOMAIN ( mycoolapp.cooldomain.com)
 Points a URL to AWS resource (mycoolapp.cooldomain.com >> somethingelse.amazonaws.com)
 Works for ROOT DOMAIN and NON ROOT DOMAIN.  (aka cooldomain.com)
   
+* Simple Routing Policy  
+Maps a domain to one URL  
+Used to redirect single resource  
+Cannot attach health checks to Simple Routing Policy  
+If multiple values are returned, random one chosen by client  
+  
+* Weighted Routing Policy  
+Control the percentage of request to a specific endpoint  
+Helpful to test percentage of traffic on a new app version, if needed  
+Can split traffic between two regions  
+Can be associated with health checks  
+  
+* Latency Routing Policy
+Redirect to the server that has the least latency  
+Beneficial when latency of users is a priority  
+Latency determined by user to designated AWS Region  
+** Germany could be directed to the US, if that's the lower latency
