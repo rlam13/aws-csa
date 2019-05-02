@@ -224,3 +224,11 @@ Routing based on user location (different from latency based)
   
 * Multivalue Answer Routing Policy  
 Deploy when you want Route 53 to respond to DNS queries with up to eight healthy records selected at random 
+  
+* Route 53 can be a Registar  
+Domain registar is an organization that manages reservation of Internet domain names
+
+* Third Party Registrar with Route 53  
+Route 53 can be used if domain is bought from third party website
+ + Create hosted zone in Route 53
+ + Update NS records on third party website to use Route 53 name servers
