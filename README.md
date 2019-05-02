@@ -230,5 +230,20 @@ Domain registar is an organization that manages reservation of Internet domain n
 
 * Third Party Registrar with Route 53  
 Route 53 can be used if domain is bought from third party website
- + Create hosted zone in Route 53
- + Update NS records on third party website to use Route 53 name servers
+  - Create hosted zone in Route 53
+  - Update NS records on third party website to use Route 53 name servers  
+  
+** S3 **  
+Objects(files) have a key.  The key is the full path:
+<example_bucket_name>/example.txt  
+<example_bucket_name>/sample_folder/another_folder/example.txt  
+No actual directories - the UI will make it look like directories  
+Object values are the content of the body:
+  + max size 5TB
+  + if upload is larger than 5GB, must use multi-part upload  
+Metatdata (list of text key / value pairs - system or user metadata)  
+Tags (unicode key/value pair - up to ten) - useful for security / lifecycle
+Versioning can be enabled at the bucket level
+  + same key overwrite will increment the version. IE: 1, 2, 3 etc....  
+  + best practice to version buckets  
+  
