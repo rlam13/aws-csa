@@ -330,6 +330,17 @@ Files not versioned prior to enabling versioning will have version "null"
     + new way: default encryption in S3 (bucket policies are evaulated before "default encryption"
   
 * Access logs
-    + log
+    + optional: log all access to S3 buckets
+    + optional: use Athena to analyze directly from a bucket
   
+* Cross Region Replication
+    + must enable versioing (source & destination)
+    + buckets must be in different AWS regions
+    + can be in different accounts
+    + copying is asynchronous
+    + must give proper IAM permissions to S3
+    + use cases: compliance, lower latency access, replication across accounts
+    
+* Presigned URLs
+
 
