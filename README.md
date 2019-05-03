@@ -342,5 +342,22 @@ Files not versioned prior to enabling versioning will have version "null"
     + use cases: compliance, lower latency access, replication across accounts
     
 * Presigned URLs
-
+  + Grant temporary access to users with pre-signed URL to have them inherit permissions of person that generated the URL (GET/PUT)
+  + Default 3600 secs
+  + Downloads (easy, can use the CLI)
+  + Uploads (harder, must use the SDK)
+  + Applications:  
+    + allow only logged in users to download premium video on S3 bucket
+    + allow ever changing list of users to download files by generating URL's dynamically
+    + allow temporarily a user to upload a file to a precise location within a bucket
+  
+* CloudFront, aka Content Delivery Network (CDN)
+  + improved read performance, content cached at edge locations, 136 points of presence globally
+  + popular with S3, but works with EC2 and load balancing
+  + can help against network attacks
+  + can provide SSL encryption (HTTPS) at edge using ACM
+  + Cloudfront can use HTTPS to communicate with your applications
+  + supports RTMP Protocol (video/media)
+  
+  
 
