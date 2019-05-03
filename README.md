@@ -359,5 +359,16 @@ Files not versioned prior to enabling versioning will have version "null"
   + Cloudfront can use HTTPS to communicate with your applications
   + supports RTMP Protocol (video/media)
   
+* Cloudfront vs S3 Cross Region Replication  
+  + Cloudfront
+    + Global edge network
+    + Files are cached for a TTL (approximately a day)
+    + Perfect for static content that must be available everywhere
+  + S3 Cross Region Replication
+    + Required to be setup for each region where replication are needed
+    + Files are updated in near real-time
+    + Read only
+    + Perfect for dynamic content that requires low-latency availability in few regions
+  
   
 
