@@ -317,7 +317,19 @@ Files not versioned prior to enabling versioning will have version "null"
     + If read object after updating, may get the older version (PUT 200 -> PUT 200 -> GET 200)
     + If delete object, may be able to retrieve it for a short time after (DELETE 200 -> GET 200)
     
+* MFA Delete
+    + Require MFA to permanently delete object version
+    + Require MFA to suspend versioning on the bucket
+    + MFA not required for enabling version
+    + MFA not required for listing deleted versions
+    + Only the bucket owner (root account) can enable/disable MFA delete
+    + MFA delete currently enabled using the CLI
+
+* Default Encryption vs Bucket Policies
+    + old way: use bucket policy and refuse HTTP command without proper headers
+    + new way: default encryption in S3 (bucket policies are evaulated before "default encryption"
   
-    
+* Access logs
+    + log
   
 
