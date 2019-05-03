@@ -233,7 +233,7 @@ Route 53 can be used if domain is bought from third party website
   - Create hosted zone in Route 53
   - Update NS records on third party website to use Route 53 name servers  
   
-** S3 **  
+**S3**  
 Objects(files) have a key.  The key is the full path:
 <example_bucket_name>/example.txt  
 <example_bucket_name>/sample_folder/another_folder/example.txt  
@@ -306,8 +306,18 @@ Files not versioned prior to enabling versioning will have version "null"
     + <bucket_name>.s3-website.<AWS-region>.amazonaws.com
   + If 403 error, confirm bucket policy allows public read
    
-   
+* Cross Origin Resource Sharing (CORS)
+  + limits the number of webiste that request your files in S3 (saves money)
   
+* Consistency Model
+  + Read after write consistency for PUTS of new objects
+    + as soon as object is written we can retrieve it (PUT 200 -> GET 200)
+    + except if GET was done before (GET 404 -> PUT 200 -> GET 404) -eventually consistent
+  + Eventual consistency for DELETES and PUTS of existing objects
+    + If read object after updating, may get the older version (PUT 200 -> PUT 200 -> GET 200)
+    + If delete object, may be able to retrieve it for a short time after (DELETE 200 -> GET 200)
+    
   
+    
   
 
