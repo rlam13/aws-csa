@@ -255,7 +255,7 @@ Files not versioned prior to enabling versioning will have version "null"
   + SSE-C: self manage encryption keys  
   + Client side encryption is an option  
   
-![alt text](https://github.com/rlam13/AWS-Cloud-Solutions-Architect/blob/master/screenshots/SSE-S3.png)  
+![alt text](https://github.com/rlam13/AWS-Cloud-Solutions-Architect/screenshots/SSE-S3.png)  
   
     
 ![alt text](https://github.com/rlam13/AWS-Cloud-Solutions-Architect/blob/master/screenshots/SSE-KMS.png)  
