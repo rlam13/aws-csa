@@ -370,5 +370,6 @@ Files not versioned prior to enabling versioning will have version "null"
     + Read only
     + Perfect for dynamic content that requires low-latency availability in few regions
   
+* S3 Standard  
   
 
