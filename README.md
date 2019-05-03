@@ -247,3 +247,11 @@ Versioning can be enabled at the bucket level
   + same key overwrite will increment the version. IE: 1, 2, 3 etc....  
   + best practice to version buckets  
   
+Files not versioned prior to enabling versioning will have version "null"  
+  
+* Encryption for Objects  
+  + SSE-S3: AWS handles and manages keys  
+  + SSE-KMS: AWS Key Management Service to manage encryption keys  
+  + SSE-C: self manage encryption keys  
+  + Client side encryption is an option  
+  
