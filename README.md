@@ -371,5 +371,41 @@ Files not versioned prior to enabling versioning will have version "null"
     + Perfect for dynamic content that requires low-latency availability in few regions
   
 * S3 Standard  
+  + High durability 99.99999999999% across multiple AZ
+  + 99.99% availability over a given year
+  + Can sustain two concurrent facility failurs
+  + Uses: Big data analytics, mobile & gaming applicatoins, content distribution
+  
+* S3 Standard - Infrequent Access (IA)
+  + For data less frequently accessed, but requires rapid access
+  + High durability 99.99999999999% across multiple AZ
+  + 99.99% availability over a given year
+  + Can sustain two concurrent facility failures
+  + Uses: data store for disaster recovery and backups
+  
+* S3 One Zone - Infrequent Access (IA)
+  + Same as IA but data in a single AZ
+  + High durability 99.99999999999% in one AZ
+  + 99.95% availability over a given year
+  + Low cost compared to IA (20% cheaper)
+  + Uses: secondary backup copies of on-premise data or storing data that can be recreated easily
+  
+* S3 Glacier
+  + Low cost object storage for archiving
+  + Meant for longer term storage
+  + Alternative to on-premise magnetic tape
+  + High durability 99.99999999999%
+  + Cost per storage per month ($0.004/ GB) + retrieval cost
+  + Each item in Glacier is called "Archive" (up to 40TB)
+  + Archives are stored in "Vaults"
+  + Retrieval options:
+    + Expedited (1 to 5 minutes retrieval) - $0.03 per GB and $0.01 per request
+    + Standard (3 to 5 hours retrieval) - $0.01 per GB and $0.05 per 1000 request
+    + Bulk (5 to 12 hours retrieval) - $0.0025 per GB and $0.025 per 1000 request
+    
+* S3 Lifecycle Rules
+  + Rules to trigger when to move data to lower tiers to save storage cost
+  + IE: General Purpose > IA > Glacier
+  
+  
 
-test line
