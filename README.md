@@ -251,11 +251,62 @@ Files not versioned prior to enabling versioning will have version "null"
   
 * Encryption for Objects  
   + SSE-S3: AWS handles and manages keys  
+    + Object is encrypted server side
+    + AWS-256 encryption type
+    + Must set header: "x-amz-server-side-encryption":"AES256"
   + SSE-KMS: AWS Key Management Service to manage encryption keys  
+    + KMS Advantages: user control + audit trail
+    + Object is encrypted server side
+    + Must set header: "x-amz-server-side-encryption":"aws:kms"
   + SSE-C: self manage encryption keys  
+    + Server-side encryption using data keys fully managed by the customer side
+    + S3 doesn't store the encryption key
+    + HTTPS must be used
+    + Encryption key must provided in HTTP headers, for every HTTP request made
   + Client side encryption is an option  
+    + Client library such as Amazon S3 Encryption Client
+    + Client must encrypt data before sending to S3
+    + Client must decrypt data after retrieving from S3
+    + Encryption cycle fully managed by customer  
   
-
+* Security
+  + User based - IAM policies 
+    + Set which API calls are permitted by specific user via IAM console
+  + Resource based  
+    + Bucket Policies - bucket wide rules from the S3 console - allows cross account
+    + Object Access Control List (ACL) - finer granularity
+    + Bucket Access Control List (ACL) - not as common  
+    
+* Bucket Policies
+  + JSON based 
+    + Resources buckets and objects
+    + Actions: Set of API to Allow or Deny
+    + Effect: Allow / Deny
+    + Principal: The account or user to apply the policy to
+  + Use S3 bucket for policy to:
+    + Grant public access to the bucket
+    + Force objects to be encrypted at upload
+    + Grant access to another account (cross account)  
+  
+* Other
+  + Networking:
+    + Supports VPC Endpoints (for instance in VPC without www internet)
+  + Logging and Audit
+    + S3 access logs can be stored in other S3 bucket
+    + API calls can be logged in AWS CloudTrail
+  + User Security:
+    + MFA can be required in versioned buckets to delete objects
+    + Signed URL's: URL's that are valid only for a limited time (IE: premium video service for logged in users)
+    
+* Websites
+  + S3 can host static websites 
+  + The website URL would be:
+    + <bucket_name>.s3-website-<AWS-region>.amazonaws.com
+              OR
+    + <bucket_name>.s3-website.<AWS-region>.amazonaws.com
+  + If 403 error, confirm bucket policy allows public read
+   
+   
   
   
   
