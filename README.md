@@ -257,11 +257,15 @@ Files not versioned prior to enabling versioning will have version "null"
   
 ![alt text](https://github.com/rlam13/AWS-Cloud-Solutions-Architect/blob/master/screenshots/SSE-S3.png)  
   
+    
 ![alt text](https://github.com/rlam13/AWS-Cloud-Solutions-Architect/blob/master/screenshots/SSE-KMS.png)  
+  
   
 ![alt text](https://github.com/rlam13/AWS-Cloud-Solutions-Architect/blob/master/screenshots/SSE-C.png)  
   
+  
 ![alt text](https://github.com/rlam13/AWS-Cloud-Solutions-Architect/blob/master/screenshots/Client_side_encryption.png)  
+  
   
   
 
