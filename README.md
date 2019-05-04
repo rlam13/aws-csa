@@ -473,6 +473,7 @@ Files not versioned prior to enabling versioning will have version "null"
         + Need to create a DLQ first then designate it as DLQ
         + Ensure to process messages in DLQ before they expire
         
+![alt text](https://github.com/rlam13/AWS-Cloud-Solutions-Architect/blob/master/screenshots/SQS.png)
       
       
   
