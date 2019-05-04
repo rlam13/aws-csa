@@ -406,6 +406,43 @@ Files not versioned prior to enabling versioning will have version "null"
 * S3 Lifecycle Rules
   + Rules to trigger when to move data to lower tiers to save storage cost
   + IE: General Purpose > IA > Glacier
+  + Transition actions: Defines when objects transition to another storage class
+  + Expiration actions: Assists in configuring object to expire after certain period
+  
+* Snowball
+  + Physical transport, secure, tamper resistant, KMS 256, tracking
+  + If it takes more than a week to transfer over the network, use Snowball
+  
+* Snowball Edge
+  + Same as Snowball but adds computational capability.
+  + 100TB capacity with either:
+    + Storage optimized - 24 vCPU
+    + Compute optimized - 52 vCPU & option GPU
+  + Supports a custom EC2 AMI, perform processing on the go
+  + Supports custom Lambda functions
+  + Practical to pre-process data in transit
+  
+* AWS Storage Gateway
+  + Bridge between on-prem data and S3
+    + File Gateway
+      + S3 buckets accessible via NFS and SMB
+      + supports S3 standard, S3 IA, S3 One Zone IA
+      + Bucket access using IAM roles for each File Gateway  
+    + Volume Gateway
+      + Block Storage / iSCSI
+      + Backed by S3 with EBS snapshots
+    + Tape Gateway
+      + Virtual Tape Library (VTL) Solution / Backup with iSCSI
+      + Backed by S3 and Glacier
+      
+    
+  **ATHENA**
+  + Serverless service to perform analytics directly in S3
+  + uses SQL
+  + Has JDBC / ODBC driver
+  + Charged per query and amount of data scanned
+  + Supports CSV, JSON, ORC, Avro, and Parquet (built on Presto)
+  + Uses: BI/analytics/reporting/analyze & query.  VPC flow logs, ELB logs, Cloudtrail etc etc
   
   
 
