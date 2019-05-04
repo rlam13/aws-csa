@@ -436,13 +436,45 @@ Files not versioned prior to enabling versioning will have version "null"
       + Backed by S3 and Glacier
       
     
-  **ATHENA**
+**ATHENA**
   + Serverless service to perform analytics directly in S3
   + uses SQL
   + Has JDBC / ODBC driver
   + Charged per query and amount of data scanned
   + Supports CSV, JSON, ORC, Avro, and Parquet (built on Presto)
   + Uses: BI/analytics/reporting/analyze & query.  VPC flow logs, ELB logs, Cloudtrail etc etc
+  
+**SQS**
+  + Fully managed
+  + Scales from one message/second to 10k messages/second
+  + Default retention of messsage: four days, maxiumum 14 days
+  + no limit of messages in the queue
+  + low latency (<10ms on publish and receive)
+  + horizontal scaling in terms of number of consumers
+  + can have duplicate messages (at least once delivery, occasionally)
+  + can have out of order messages
+  + limitation of 256kb per message
+    + Delay Queue
+      + Delay a message up to 15 minutes
+      + Default is 0 seconds (message available right away)
+      + Set default at queue level
+      + Can override the default using the DelaySeconds parameter
+    + Visibility Timeout
+      + when consumer polls a message from a queue, the message is "invisible" to other consumers for a defined period
+        + set between 0 seconds and 12 hours (default 30 secs)
+        + If too high, 15 minutes and consumer fails to process the message, wait a long time before processing the message again
+        + If too low, 30 seconds and consumer needs time to process the message (two minutes), another consumer will receive the message will be processed more than once
+      + ChangeMessageVisiblity API to change the visbility while processing a message
+      + DeleteMessage API to tell SQS the message was successfully processed
+    + Dead Letter Queue
+      + If consumer fails to process a message within the Visibility Timeout --> message goes back to the queue
+      + Can set threshold of how many times message(s) go back to queue (aka redrive policy)
+        + After threshold exceeded messages goes to dead letter queue (DLQ)
+        + Need to create a DLQ first then designate it as DLQ
+        + Ensure to process messages in DLQ before they expire
+        
+      
+      
   
   
 
