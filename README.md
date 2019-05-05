@@ -475,7 +475,91 @@ Files not versioned prior to enabling versioning will have version "null"
         
 ![alt text](https://github.com/rlam13/AWS-Cloud-Solutions-Architect/blob/master/screenshots/SQS.png)
       
+    + FIFO Queue
+      + First In / First Out (not available in all regions)
+      + Name of queue must end in .fifo
+      + lower throughput (3,000/s with batching, 300/s w/o)
+      + Messages processed in order by the consumer
+      + Messages are sent exactly once
+      + No per message delay (only per queue delay)
+      + Ability for conten base de-duplication
+      + Five minute interval de-duplication using "Duplication ID"
+      + Message groups:
+        + Can group messages for FIFO using "Message GroupID"
+        + Only one workder assigned per message group so messages are prcessed in order
+        + Message group is just and extra tag on the message
+        
+**SNS**
+  + Event producer only sends message to one SNS topic
+  + Event receivers (subscriptions) want to listen to the SNS topic notificaions
+  + Each subscirber to topic will get all messages (note: new feature to filter messages)
+  + Up to 10,000,000 subscriptions per topic / 100,000 topics limit
+  + Subcribers can be:
+    + SQS, HTTP / HTTPS (with deilvery retries - how many times), Lambda, Emails, SMS messages, Mobile Notifications
+    
+    + Topic Publish (SDK)
+      + Create a topic
+      + Create a subscription (or many)
+      + Publish to the topic
       
-  
+    + Direct Publish (mobile apps SDK)
+      + Create platform application
+      + Create platform endpoint
+      + Publish to platform endpoint
+      + works with Google GCM, Apple APNS, Amazon ADM
+      
+    + SNS + SQS: Fan Out
+      + Push once in SNS, receive in many SQS
+      + Fully decoupled
+      + No data loss
+      + Ability to add receivers of data later
+      + SQS allows for delayed processing
+      + SQS allows for retries of work
+      + May have many workers on one queue and one worker on the other queue
+      
+ **KINESIS**
+   + Kinesis is a managed alternative to Apache Kafka
+   + Uses: application logs, metircs, IOT, clickstreams, real-time big data, processing frameworks (Spark, Nifi, etc)
+   + Data auto replicated to three AZ's
+     + Streams: low latency streaming ingest at scale
+     + Analytics: perform real-time analytics on streams using SQL
+     + Firehose: load streams into S3, Redshift, ElasticSearch
+   
+   + Security
+     + ACL via IAM policy
+     + Encryption in flight - HTTPS
+     + Encryption at rest - KMS
+     + Possible to encrypt/decrypt on client side (more difficult)
+     +VPC Endpoints available for Kinesis to access within VPC
+     
+
+ 
+ 
+ **Amazon MQ**
+   + To migrate on-premises open protcols MQTT, AMQP, STOMP, Openwire, WSS --> AMazon MQ
+   
+ **Lambda**
+   + Virtual functions - no servers to manage
+   + Limited by time - short executions
+   + Run on-demand
+   + Scaling is automated
+   + Easy pricing
+     + Pay per request and compute time
+     + Free tier of 1,000,000 AWS Lambda requests and 400,000 GBs of compute time
+   + Integrated with entire AWS stack - Primary Ones:
+     + API Gateway, Kinesis, DynamoDB, S3, AWS IOT, CloudWatch Events/Logs, SNS, SQS, Cognito
+   + Integerated with many programming languages
+   + Easy monitoring through AWS CloudWatch
+   + Easy to get more resources per functions (up to 3GB of RAM!)
+   + Increasing RAM will also imprrove CPU and network
+   
+   
+     
+   
+ 
+ 
+ 
+ 
+
   
 
