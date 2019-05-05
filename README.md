@@ -619,8 +619,24 @@ Files not versioned prior to enabling versioning will have version "null"
        + Must implement authorization in the backend
   
   **Cognito**
-    + Provide users and identity so that they can interact with our apps
-    
+    + Provide users an identity so that they can interact with apps
+      + Cognito User Pools (CUP)
+        + Sign in functionality for app users
+        + Simple login (username/email and password)
+        + Can be MFA, use email/phone number to verify
+        + Can be federated identity (FB, Google, SAML)
+        + Sends back JSON Web Token (JWT)
+        + Can Integerate with API Gateway for authentication
+      + Cognito Identity Pools (Federated Identity)
+        + Provide AWS credentials to users to they can access AWS resources directly
+        + Integrate with Cognito User Pools as an identity provider
+      + Cognito Sync (deprecated - use AWS AppSync now)
+        + Synchronize data from device to Cognito
+        + May be deprecated and replace by AppSync
+        + Requires federated identity pool in Cognito (NOT user pool)
+        
+  
+ 
    
      
    
