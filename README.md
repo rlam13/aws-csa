@@ -551,8 +551,76 @@ Files not versioned prior to enabling versioning will have version "null"
    + Integerated with many programming languages
    + Easy monitoring through AWS CloudWatch
    + Easy to get more resources per functions (up to 3GB of RAM!)
-   + Increasing RAM will also imprrove CPU and network
-   
+   + Increasing RAM will also improve CPU and network
+     + Allocated 128M to 3G (64MB increments)
+     + Able to deploy within VPC + attach security group
+     + IAM execution role must be attached to the Lambda function
+   + Max execution 300 seconds (5 minutes)
+   + Disk capacity in function container 512mb (/tmp)
+   + concurrency limit: 1000
+   + Deployment
+     + Lambda function deployment size (compressed .zip): 50MB
+     + Size of uncompressed deployment (code + dependencies): 250MB
+     + can use /tmp directory to load other files at startup
+     + size of environment variables: 4kb
+     
+**DynamoDB**
+  + Fully managed, highly available, replication across three AZ's
+  + NoSQL DB
+     + made of tables
+     + each table has primary key
+     + each table can have infinite number of items (rows)
+     + each item has attributes (can be added over time, can be null)
+     + max size of item 400KB
+  + Scales to massive workloads, distributed database
+  + Millions of request per seconds, trillions of row, 100s of TB of storage
+  + Fast and consistent in performance (low latency on retrieval)
+  + Integrated with IAM (security/admin/authorization)
+  + Enables event driven programming with DynamoDB streams
+  + Low cost and auto scaling capabilities
+  + Data types supported are:
+    + Scalar Types: string, number, binary, boolean, null
+    + document types: list, map
+    + set types: string set, number set, binary set
+  + DynamoDB Accelerator - aka DAX
+  
+ **API Gateway**
+   + Lambda + Gateway: no infrastructure to manage
+   + Handle API versioning
+   + Handle different environments (dev, test, prod)
+   + Handle security (authentication and authorization)
+   + Create API keys, handle request throttling
+   + Swagger / Open API import to quickly to define API's
+   + Transform and validate requests and responses
+   + Generate SDK / API specification
+   + cache API responses
+   + Integrations
+     + Outside of VPC
+       + AWS Lambda
+       + Endpoints of EC2
+       + Load balancers
+       + Any AWS Service
+       + External and publicy accessible HTTP endpoints
+     + Inside of VPC
+       + AWS Lambda in your VPC
+       + EC2 endpoints in your VPC
+   + Security
+     + IAM - Gateway verifies IAM permissions passed by the calling application
+       + Good to provide access within your infrastructure
+       + Leverages "Sig v4" capability where IAM credential are in headers
+     + Custom Authorizer
+       + Good for third party tokens
+       + Very flexible for which IAM policy is returned
+       + Handle Authentication and Authorization
+       + Pay per Lambda invocation
+     + Cognito User Pool:
+       + You manage your own user pool (can be backed by FB, google etc logins)
+       + No need to write custom code
+       + Must implement authorization in the backend
+  
+  **Cognito**
+    + Provide users and identity so that they can interact with our apps
+    
    
      
    
