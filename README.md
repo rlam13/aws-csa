@@ -136,12 +136,14 @@ Supports Transparent Data Encryption (TDE) for DB enryption
   + Uses: RDBMS / OLTP, perform SQL queries, transaction inserts / update / delete is available
   
 **Aurora**  
-Proprietary from AWS  - Postgres and MySQL are supported  
+Proprietary from AWS  - Postgres and MySQL are supported with API  
 Cloud optimzed 5x improvement over MySQL on RDS, and 3x of Postgres on RDS  
 Grows in increments of 10GB, up to 64TB  
-Up to 15 replicas.  (MySQL can have 5), faster replication <10ms replica lag  
+Up to 15 replicas.  (MySQL can have 5), faster replication <10ms replica lag
+  + can be global read replica
 Failover in Aurora is instantaneous - HA native  
 Costs ~20% more - but more efficient  
+Auto healing capability
 Auto fail-over  
 Backup & Recovery  
 Isolation & security  
@@ -165,15 +167,44 @@ Aurora Global DB span multipl regions and enable DR
 * < 1 second replica lag on average  
 If not use Global DB, can create cross-region read replics  
 * FAQ recommends Global DB  
+
+Use: same as RDS, but less maintenance, more flexibility, more performance
+
+* Operations:
+  + less operations, auto scaling storage
+* Security:
+  + AWS responsible for OS security, owner responsible for setting up KMS, security groups, IAM policies, authorizing users in DB use SSL
+* Reliability:
+  + Multi AZ, highly available, possibly more than RDS, serverless option available
+* Performance:
+  + 5x performance (according to AWS) due to artchitectural optimizations.  Up to 15 Read Replicas (only five for RDS)
+* Cost:
+  + Pay per hour based on EC2 and storage usage.  Possibly lower costs compared to Enterprise grade databases such as Oracle
+  
   
 **Elasticache**  
-Manaaged Redis or Memcached  
-Very high performance, low latency  
+Manaaged Redis or Memcached  (similar to RDS, but for cache)
+Very high performance, sub-milisecond latency  
+Must provision an EC2 instance type
+Support for Clustering (Redis) and Multi AZ, Read Replicas (sharding)
 Write scaling using sharding  
 Read scaling useing read replicas  
 Multi AZ with failover capability  
 AWS managed. (OS maintenance/patching,optimizations,setup,config,monitoring, failure recovery and backups)  
 SASL authentication (no IAM)  
+
+Use Case: Key/Value store, Frequent reads, less writes, cache results for DB queries, store session data for websites, cannot use SQL.
+
+Operations:
+  + same as RDS
+* Security:
+  + AWS responsible for OS security, owner responsible for setting up KMS, security groups, IAM policies, users (Redis Auth), use SSL
+* Reliability:
+  + Clustering, Multi AZ
+* Performance:
+  + sub-milisecond performance, in memory, read replicas for sharding, very popular cache option
+* Cost:
+  + Pay per hour based on EC2 and storage usage.
 
 **Redis**  
 RedisAUTH (username/password) (no IAM)  
@@ -326,6 +357,28 @@ Files not versioned prior to enabling versioning will have version "null"
     + <bucket_name>.s3-website.<AWS-region>.amazonaws.com
   + If 403 error, confirm bucket policy allows public read
    
+* As Database
+  + Key / value store for objects
+  + Great for big objects, not as good for small objects
+  + Serverless, scales infinitely, max object size is 5TB
+  + Eventually consistency for overwrites and deletes
+  + Tiers: S3 Standard, S3 IA, S3 One Zone IA, Glacier for backups
+  + Features: versioning, encryption, cross regions replication
+  + Security: IAM, bucket policies, ACL
+  + Encryption: SSE-S3, SSE-KMS, SSE-C, client side encryption, SSL in transit
+  + Uses: static files, key value store for big files, webiste hosting
+  
+* Operations:
+  + no operations needed
+* Security:
+  + IAM, Bucket Policies, ACL, Encryption (server/client), SSL
+* Reliability:
+  + 99.999999999% durability, 99.99% availability, Multi AZ, CRR
+* Performance:
+  + scales to thousands of reads / writes per second, transfer acceleration / multi-part for big files
+* Cost:
+  + pay per storage usage, network cost, request number
+   
 * Cross Origin Resource Sharing (CORS)
   + limits the number of webiste that request your files in S3 (saves money)
   
@@ -457,13 +510,87 @@ Files not versioned prior to enabling versioning will have version "null"
       
     
 **ATHENA**
-  + Serverless service to perform analytics directly in S3
-  + uses SQL
+  + Serverless service to perform analytics directly in S3 with SQL capability
   + Has JDBC / ODBC driver
   + Charged per query and amount of data scanned
   + Supports CSV, JSON, ORC, Avro, and Parquet (built on Presto)
   + Uses: BI/analytics/reporting/analyze & query.  VPC flow logs, ELB logs, Cloudtrail etc etc
+  + Pay per query
+  + Output results back to S3
   
+* Operations:
+  + no operations needed, serverless 
+* Security:
+  + IAM + S3 security
+* Reliability:
+  + managed service, uses Presto engine, highly available
+* Performance:
+  + queries scale based on data size
+* Cost:
+  + Pay per per query / per TB of data scanned, serverless
+
+**Redshift**
+  + Based on PostgreSQL but not used for OLTP
+  + OLAP - online analytical processing (analytics and data warehousing)
+  + 10x better performance than other data warehouses, scale to PB's of data
+  + Columnar storage of data (opposed to row based)
+  + Massively parallel query execution (MPP), highly available
+  + Pay as you go based on the instances provisioned
+  + Has a SQL interface for performing the queries
+  + BI tools such as AWS Quicksight or Tableau integrate with it
+  **Redshift = Analytics / BI / Data Warehouse**
+  
+* Operations:
+  + similar to RDS
+* Security:
+  + IAM, VPC, KMS, SSL (similar to RDS)
+* Reliability:
+  + highly available, auto healing features
+* Performance:
+  + 10x performance vs other data warehousing, compression
+* Cost:
+  + Pay per node provisioned, 1/10th cost of other warehouses
+  
+**Neptune**
+  + Fully managed graph database
+    + High relationship data
+    + Social Networking: Users friends with users, replied to comment on post of user and likes other comments
+    + knowledge graphics (wikipedia)
+  + Highly available across three AZ's, with up to 15 read replicas
+  + Point-in-time recovery, continuous backup to S3
+  + Support for KMS encryption at rest + HTTPS
+  
+* Operations:
+  + similar to RDS
+* Security:
+  + KMS, VPC, IAM policies, SSL (similar to RDS) + IAM Authentication
+* Reliability:
+  + Clustering, Multi AZ
+* Performance:
+  + best suited for graphs, clustering to improve performance
+* Cost:
+  + Pay per node provisioned (similar to RDS)
+  
+**ElasticSearch = Search / Indexing**
+  + compared to DynamoDB, only find by primary key or indexes.
+    + Elasticsearch can search any field, even partial matches
+  + common to use ElasticSearch as complement to another database
+  + some use for big data applications
+  + provision cluster of instances
+  + Built-in integrations: Kinesis Data Firehose, AWS IoT, and CloudWatch logs for data ingest
+  + Security through Cognito & IAM, KMS encryption, SSL & VPC
+ 
+* Operations:
+  + similar to RDS
+* Security:
+  + Cognito, IAM, VPC, KMS, SSL
+* Reliability:
+  + Clustering, Multi AZ
+* Performance:
+  + based on ElasticSearch project (open-source), petabyte scale
+* Cost:
+  + Pay per node provisioned (similar to RDS)
+   
 **SQS**
   + Fully managed
   + Scales from one message/second to 10k messages/second
@@ -553,8 +680,6 @@ Files not versioned prior to enabling versioning will have version "null"
      +VPC Endpoints available for Kinesis to access within VPC
      
 
- 
- 
  **Amazon MQ**
    + To migrate on-premises open protcols MQTT, AMQP, STOMP, Openwire, WSS --> AMazon MQ
    
@@ -585,6 +710,9 @@ Files not versioned prior to enabling versioning will have version "null"
      + size of environment variables: 4kb
      
 **DynamoDB**
+  + AWS proprietary technology, managed NoSQL database
+  + Serverless, provisioned capacity, auto scaling, on demand capacity (Nov 2018)
+  + Can replace Elasticache as a key/value store (storing session data for example)
   + Fully managed, highly available, replication across three AZ's
   + NoSQL DB
      + made of tables
@@ -603,6 +731,18 @@ Files not versioned prior to enabling versioning will have version "null"
     + document types: list, map
     + set types: string set, number set, binary set
   + DynamoDB Accelerator - aka DAX
+  + Integrates with AWS Lambda
+
+* Operations:
+  + no operations needed, auto scaling capability, serverless
+* Security:
+  + full security through IAM policies, KMS encryption, SSL in flight
+* Reliability:
+  + Backups, Multi AZ
+* Performance:
+  + single digit milisecond performance, DAX for caching reads, peformance doesn't degrade if application scales
+* Cost:
+  + Pay per provisioned capacity and storage usage (no need to guess in advance any capacity - can use auto scaling)
   
  **API Gateway**
    + Lambda + Gateway: no infrastructure to manage
