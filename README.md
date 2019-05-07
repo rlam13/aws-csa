@@ -5,7 +5,7 @@ My AWS Cloud Solutions Architect study notes
 
 **Primary ones to focus on:  VPC, EC2, S3, EBS, ECS, LAMBDA, API, AutoScaling**
 
-**EC2**  
+## EC2
 Timeout isses => security groups configuration?  
 Security groups can reference other security groups instead of ip ranges  
 Public IP (obvious)  
@@ -26,7 +26,7 @@ I = IO
 G = GPU  
 T2/T3 = Burst (or budget)  
 
-* Amazon Machine Image (AMI)  
+## Amazon Machine Image (AMI)  
 Create AMI to pre-install software on for EC2 => faster boot/deployment of instances  
 AMI can be copeid across regions and accounts.  (default within region only)  
   
@@ -795,8 +795,8 @@ Files not versioned prior to enabling versioning will have version "null"
         + May be deprecated and replace by AppSync
         + Requires federated identity pool in Cognito (NOT user pool)
         
- # Cloudwatch
- ## Metrics
+ ## Cloudwatch
+ ### Metrics
  
  + Provides metrics for *every* service in AWS
  + Metric is a variable to monitor (CPUUtilization, NetworkIn...)
@@ -823,13 +823,13 @@ Files not versioned prior to enabling versioning will have version "null"
  + Use API call PutMetricData
  + Use exponential back off in case of throttle errors
      
- ## Dashboards
+ ### Dashboards
  + Dashboards are global
  + Include graphs from different regions
  + Able to change time zone & time range
  + Able to set auto refresh (10s,1m,2m,5m,15m)
  
- ## Logs
+ ### Logs
  + Applications can send logs to CloudWatch via SDK
  + CloudWatch can collect logs from:
    + Elastic Beanstalk: logs from application
@@ -851,7 +851,7 @@ Files not versioned prior to enabling versioning will have version "null"
  + Send logs to CloudWatch, ensure IAM permissions are correct
  + Security: encryption of logs using KMS at the group level
 
-## Alarms
+### Alarms
 + Used to trigger notifications for any metric
 + notifications can be sent to Auto Scaling, EC2 Actions, SNS notifications
 + Various options (sampling,percentage,max,min,etc...)
@@ -860,14 +860,14 @@ Files not versioned prior to enabling versioning will have version "null"
   + Length of time in seconds to evaluate the metric
   + High resolution custom metrics: can only choose 10s or 30s
   
-## Events
+### Events
 + Schedule: cron jobs
 + Event Pattern: Event rules to react to a service doing something
   + CodePipeline state changes!
 + Triggers to Lambda functions, SQS/SNS/Kinesis Messages
 + CloudWatch Event creates a small JSON document to give information about the change
 
-# CloudTrail
+### CloudTrail
 + Provides governance, compliance and audit for your AWS Account
 + CloudTrail is enabled by default
 + Get history of events / API calls made within your AWS Account by:
@@ -878,10 +878,33 @@ Files not versioned prior to enabling versioning will have version "null"
 + Put logs from CloudTrail into CloudWatch logs
 + If resource is delelted in AWS, look into CloudTrail first!
 
+## Encryption 
+ 
+### Key Manamgent Service (KMS)
++ Use to share sensitive information
+   + Database passwords
+   + Credentials to external service
+   + Private key of SSL certificates
++ Customer Master Keys (CMK) is use to encrypt KMS value and cannot be retrieved by user.  CMK can be rotated for extra security
++ Never store passwords or other sensitive info in plaintext, especially code
++ Encrypt secrets can be stored in code / environment variables
++ KMS can only help in encrypting 4kb of data per call
++ If data >4kb, use envelope encryption
++ Assign KMS access to one (or more) person(s)
+  + Make sure Key Policy allows the user
+  + Make sure the IAM Policy allows the API calls
++ Manage key & Policies
+  + Create
+  + Rotation policies
+  + Disable
+  + Enable
++ Audit key usage (via CloudTrail)
++ Three types of CMK
+  + AWS Managed Service Default CMK: free
+  + User keys created in KMS: $1 / month
+  + User keys imported (must be 256-bit symmetric key): $1/month
++ pay for API call to KMS ($0.03 / 10000 calls)
 
- 
- 
- 
 
   
 
