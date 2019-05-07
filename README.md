@@ -744,7 +744,7 @@ Files not versioned prior to enabling versioning will have version "null"
 * Cost:
   + Pay per provisioned capacity and storage usage (no need to guess in advance any capacity - can use auto scaling)
   
- **API Gateway**
+# API Gateway
    + Lambda + Gateway: no infrastructure to manage
    + Handle API versioning
    + Handle different environments (dev, test, prod)
@@ -778,7 +778,7 @@ Files not versioned prior to enabling versioning will have version "null"
        + No need to write custom code
        + Must implement authorization in the backend
   
-  **Cognito**
+# Cognito
     + Provide users an identity so that they can interact with apps
       + Cognito User Pools (CUP)
         + Sign in functionality for app users
@@ -795,33 +795,33 @@ Files not versioned prior to enabling versioning will have version "null"
         + May be deprecated and replace by AppSync
         + Requires federated identity pool in Cognito (NOT user pool)
         
-  # Cloudwatch
-  ## Metrics
+ # Cloudwatch
+ ## Metrics
+ 
+ + Provides metrics for *every* service in AWS
+ + Metric is a variable to monitor (CPUUtilization, NetworkIn...)
+ + Metrics belong to namespaces
+ + Dimension is attribue of metric (instance ID, environment, etc...)
+ + Up to 10 dimensions per metric
+ + Metrics have timestamps
+ + Can create CloudWatch dashboards of metrics
   
-  + Provides metrics for *every* service in AWS
-  + Metric is a variable to monitor (CPUUtilization, NetworkIn...)
-  + Metrics belong to namespaces
-  + Dimension is attribue of metric (instance ID, environment, etc...)
-  + Up to 10 dimensions per metric
-  + Metrics have timestamps
-  + Can create CloudWatch dashboards of metrics
-  
-  ### Detailed Monitoring
-    + EC2 instance have metrics "every five minutes"
-    + Detailed monitoring (for a cost), get data "every minute"
-    + Use detailed monitoring for faster prompt scale of ASG
-    + AWS free tier allows ten detailed monitoring metrics
-    + *Note:* EC2 Memory usage is default not pushed (must be pushed from inside the instance as custom metric)
-    
-    + Able to define and send your own custom metrics to CloudWatch
-    + Ability to use dimensions (attributes) to segment metrics
-      + Instance.id
-      + Environment.name
-    + Metric resolution
-      + Standard: one minute
-      + High resolution: up to one second (StorageResolution API parameter) - higher cost
-    + Use API call PutMetricData
-    + Use exponential back off in case of throttle errors
+ ### Detailed Monitoring
+ + EC2 instance have metrics "every five minutes"
+ + Detailed monitoring (for a cost), get data "every minute"
+ + Use detailed monitoring for faster prompt scale of ASG
+ + AWS free tier allows ten detailed monitoring metrics
+ + *Note:* EC2 Memory usage is default not pushed (must be pushed from inside the instance as custom metric)
+   
+ + Able to define and send your own custom metrics to CloudWatch
+ + Ability to use dimensions (attributes) to segment metrics
+   + Instance.id
+   + Environment.name
+ + Metric resolution
+   + Standard: one minute
+   + High resolution: up to one second (StorageResolution API parameter) - higher cost
+ + Use API call PutMetricData
+ + Use exponential back off in case of throttle errors
      
  ## Dashboards
  + Dashboards are global
@@ -830,8 +830,55 @@ Files not versioned prior to enabling versioning will have version "null"
  + Able to set auto refresh (10s,1m,2m,5m,15m)
  
  ## Logs
- + 
- 
+ + Applications can send logs to CloudWatch via SDK
+ + CloudWatch can collect logs from:
+   + Elastic Beanstalk: logs from application
+   + ECS: collection from containers
+   + AWS Lambda: from function logs
+   + VPC flow logs: VPC specific logs
+   + API Gateway
+   + CloudTrail based on filter
+   + CloudWatch log agents: eg. EC2 instances
+   + Route53: Log DNS queries
+ + CloudWatch Logs 
+   + Batch exporter to S3 for archival
+   + Stream to ElastSearch cluster for further analytics
+ + Logs storage architecture:
+   + Log groupcs: arbitrary name, usually representing an application
+   + Log stream: instances within application / log files / containers
+ + Can define log expiration policies (never expire, 30 days, etc...)
+ + Using AWS CLI able to tail CloudWatch logs
+ + Send logs to CloudWatch, ensure IAM permissions are correct
+ + Security: encryption of logs using KMS at the group level
+
+## Alarms
++ Used to trigger notifications for any metric
++ notifications can be sent to Auto Scaling, EC2 Actions, SNS notifications
++ Various options (sampling,percentage,max,min,etc...)
++ Alarm States: Ok, Insufficient_data, Alarm
++ Period
+  + Length of time in seconds to evaluate the metric
+  + High resolution custom metrics: can only choose 10s or 30s
+  
+## Events
++ Schedule: cron jobs
++ Event Pattern: Event rules to react to a service doing something
+  + CodePipeline state changes!
++ Triggers to Lambda functions, SQS/SNS/Kinesis Messages
++ CloudWatch Event creates a small JSON document to give information about the change
+
+# CloudTrail
++ Provides governance, compliance and audit for your AWS Account
++ CloudTrail is enabled by default
++ Get history of events / API calls made within your AWS Account by:
+  + console
+  + SDK
+  + CLI
+  + AWS Services
++ Put logs from CloudTrail into CloudWatch logs
++ If resource is delelted in AWS, look into CloudTrail first!
+
+
  
  
  
