@@ -795,12 +795,42 @@ Files not versioned prior to enabling versioning will have version "null"
         + May be deprecated and replace by AppSync
         + Requires federated identity pool in Cognito (NOT user pool)
         
- 
- **RDS**
- 
-   
+  # Cloudwatch
+  ## Metrics
+  
+  + Provides metrics for *every* service in AWS
+  + Metric is a variable to monitor (CPUUtilization, NetworkIn...)
+  + Metrics belong to namespaces
+  + Dimension is attribue of metric (instance ID, environment, etc...)
+  + Up to 10 dimensions per metric
+  + Metrics have timestamps
+  + Can create CloudWatch dashboards of metrics
+  
+  ### Detailed Monitoring
+    + EC2 instance have metrics "every five minutes"
+    + Detailed monitoring (for a cost), get data "every minute"
+    + Use detailed monitoring for faster prompt scale of ASG
+    + AWS free tier allows ten detailed monitoring metrics
+    + *Note:* EC2 Memory usage is default not pushed (must be pushed from inside the instance as custom metric)
+    
+    + Able to define and send your own custom metrics to CloudWatch
+    + Ability to use dimensions (attributes) to segment metrics
+      + Instance.id
+      + Environment.name
+    + Metric resolution
+      + Standard: one minute
+      + High resolution: up to one second (StorageResolution API parameter) - higher cost
+    + Use API call PutMetricData
+    + Use exponential back off in case of throttle errors
      
-   
+ ## Dashboards
+ + Dashboards are global
+ + Include graphs from different regions
+ + Able to change time zone & time range
+ + Able to set auto refresh (10s,1m,2m,5m,15m)
+ 
+ ## Logs
+ + 
  
  
  
