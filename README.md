@@ -34,7 +34,7 @@ AMI can be copeid across regions and accounts.  (default within region only)
 Cluster - close together, high performance (faster network), less redundancy  
 Spread - spread among multi-AZ's, more redundancy  
 
-**CLB / ALB / NLB**  
+## CLB / ALB / NLB
 * CLB - may still have questions regarding security groups and stickiness  
   
 * ALB  
@@ -66,7 +66,7 @@ Clients can use Server Name Indication (SNI) to specify the hostname they reach
 Able to specify security policy to support older versions of SSL/TLS (for legacy clients)  
 
   
-**ASG**  
+## ASG
 ASG Default Termination Policy:  
 1. Find AZ with most instances
 2. If multiple instances in AZ, delete the one with oldest launch configuration  
@@ -77,7 +77,7 @@ In addition to default cooldown -> create cooldowns that apply to specific scali
 Default cooldown period is 300 seconds, can reduce down to reduce scale-in policy  
 If multiple scale out/in during an hours, modifty ASG cool-down timer and CloudWatch alarm period that triggers scale in  
 
-**EBS**  
+## EBS
 Local storage, can only be attached to one instance at a time (like a USB stick)
 Locked at the AZ level  
 * if you need to attach to another AZ, then backup (snapshot) and recreate in another AZ  
@@ -85,17 +85,17 @@ EBS backups use IO, don't run while application is handling lots of traffic
 Root EBS volumes get terminated by default if EC2 instance is terminated (can be disabled, if needed)  
 Increase EBS volume size if disk I/O is high
 
-**EFS**  
+## EFS  
 Network drive (file system) essentially
 Can mount across lots of instances  
 EFS share website files
 EBS gp2, optimize cost
 
-**Instance Store**
+## Instance Store
 The volume on the instance.  Ephemeral (higher performance, but not portable/flexible like EBS/EFS)
 Custom AMI for faster deploy  
   
-**RDS**  
+## RDS
 Managed PostgreSQL/MySQL/Oracle/SQL Server
 Need to provision EC2 instance & EBS Volume type and size
 Relational DB  
@@ -135,7 +135,7 @@ Supports Transparent Data Encryption (TDE) for DB enryption
 
   + Uses: RDBMS / OLTP, perform SQL queries, transaction inserts / update / delete is available
   
-**Aurora**  
+## Aurora
 Proprietary from AWS  - Postgres and MySQL are supported with API  
 Cloud optimzed 5x improvement over MySQL on RDS, and 3x of Postgres on RDS  
 Grows in increments of 10GB, up to 64TB  
@@ -182,7 +182,7 @@ Use: same as RDS, but less maintenance, more flexibility, more performance
   + Pay per hour based on EC2 and storage usage.  Possibly lower costs compared to Enterprise grade databases such as Oracle
   
   
-**Elasticache**  
+## Elasticache
 Manaaged Redis or Memcached  (similar to RDS, but for cache)
 Very high performance, sub-milisecond latency  
 Must provision an EC2 instance type
@@ -206,11 +206,11 @@ Operations:
 * Cost:
   + Pay per hour based on EC2 and storage usage.
 
-**Redis**  
+## Redis
 RedisAUTH (username/password) (no IAM)  
 SSL in-flight encryption must be enabled and used  
   
-**Route 53**  
+## Route 53
 Most common recoto know:  
 * A: URL to IPv4
 * AAAA: URL to IPv6
@@ -284,7 +284,7 @@ Route 53 can be used if domain is bought from third party website
   - Create hosted zone in Route 53
   - Update NS records on third party website to use Route 53 name servers  
   
-**S3**  
+## S3
 Objects(files) have a key.  The key is the full path:
 <example_bucket_name>/example.txt  
 <example_bucket_name>/sample_folder/another_folder/example.txt  
@@ -509,7 +509,7 @@ Files not versioned prior to enabling versioning will have version "null"
       + Backed by S3 and Glacier
       
     
-**ATHENA**
+## ATHENA
   + Serverless service to perform analytics directly in S3 with SQL capability
   + Has JDBC / ODBC driver
   + Charged per query and amount of data scanned
@@ -529,7 +529,7 @@ Files not versioned prior to enabling versioning will have version "null"
 * Cost:
   + Pay per per query / per TB of data scanned, serverless
 
-**Redshift**
+## Redshift
   + Based on PostgreSQL but not used for OLTP
   + OLAP - online analytical processing (analytics and data warehousing)
   + 10x better performance than other data warehouses, scale to PB's of data
@@ -551,7 +551,7 @@ Files not versioned prior to enabling versioning will have version "null"
 * Cost:
   + Pay per node provisioned, 1/10th cost of other warehouses
   
-**Neptune**
+## Neptune
   + Fully managed graph database
     + High relationship data
     + Social Networking: Users friends with users, replied to comment on post of user and likes other comments
@@ -571,7 +571,7 @@ Files not versioned prior to enabling versioning will have version "null"
 * Cost:
   + Pay per node provisioned (similar to RDS)
   
-**ElasticSearch = Search / Indexing**
+## ElasticSearch = Search / Indexing
   + compared to DynamoDB, only find by primary key or indexes.
     + Elasticsearch can search any field, even partial matches
   + common to use ElasticSearch as complement to another database
@@ -591,7 +591,7 @@ Files not versioned prior to enabling versioning will have version "null"
 * Cost:
   + Pay per node provisioned (similar to RDS)
    
-**SQS**
+## SQS
   + Fully managed
   + Scales from one message/second to 10k messages/second
   + Default retention of messsage: four days, maxiumum 14 days
@@ -636,7 +636,7 @@ Files not versioned prior to enabling versioning will have version "null"
         + Only one workder assigned per message group so messages are prcessed in order
         + Message group is just and extra tag on the message
         
-**SNS**
+## SNS
   + Event producer only sends message to one SNS topic
   + Event receivers (subscriptions) want to listen to the SNS topic notificaions
   + Each subscirber to topic will get all messages (note: new feature to filter messages)
@@ -664,7 +664,7 @@ Files not versioned prior to enabling versioning will have version "null"
       + SQS allows for retries of work
       + May have many workers on one queue and one worker on the other queue
       
- **KINESIS**
+ ## KINESIS
    + Kinesis is a managed alternative to Apache Kafka
    + Uses: application logs, metircs, IOT, clickstreams, real-time big data, processing frameworks (Spark, Nifi, etc)
    + Data auto replicated to three AZ's
@@ -680,10 +680,10 @@ Files not versioned prior to enabling versioning will have version "null"
      +VPC Endpoints available for Kinesis to access within VPC
      
 
- **Amazon MQ**
+ ## Amazon MQ
    + To migrate on-premises open protcols MQTT, AMQP, STOMP, Openwire, WSS --> AMazon MQ
    
- **Lambda**
+ ## Lambda
    + Virtual functions - no servers to manage
    + Limited by time - short executions
    + Run on-demand
@@ -709,7 +709,7 @@ Files not versioned prior to enabling versioning will have version "null"
      + can use /tmp directory to load other files at startup
      + size of environment variables: 4kb
      
-**DynamoDB**
+## DynamoDB
   + AWS proprietary technology, managed NoSQL database
   + Serverless, provisioned capacity, auto scaling, on demand capacity (Nov 2018)
   + Can replace Elasticache as a key/value store (storing session data for example)
@@ -744,7 +744,7 @@ Files not versioned prior to enabling versioning will have version "null"
 * Cost:
   + Pay per provisioned capacity and storage usage (no need to guess in advance any capacity - can use auto scaling)
   
-# API Gateway
+## API Gateway
    + Lambda + Gateway: no infrastructure to manage
    + Handle API versioning
    + Handle different environments (dev, test, prod)
@@ -778,7 +778,7 @@ Files not versioned prior to enabling versioning will have version "null"
        + No need to write custom code
        + Must implement authorization in the backend
   
-# Cognito
+## Cognito
     + Provide users an identity so that they can interact with apps
       + Cognito User Pools (CUP)
         + Sign in functionality for app users
@@ -867,7 +867,7 @@ Files not versioned prior to enabling versioning will have version "null"
 + Triggers to Lambda functions, SQS/SNS/Kinesis Messages
 + CloudWatch Event creates a small JSON document to give information about the change
 
-### CloudTrail
+## CloudTrail
 + Provides governance, compliance and audit for your AWS Account
 + CloudTrail is enabled by default
 + Get history of events / API calls made within your AWS Account by:
