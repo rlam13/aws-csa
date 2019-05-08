@@ -905,6 +905,44 @@ Files not versioned prior to enabling versioning will have version "null"
   + User keys imported (must be 256-bit symmetric key): $1/month
 + pay for API call to KMS ($0.03 / 10000 calls)
 
+## Parameter Store
++ Secure storage for configuration and secrets
++ Optional seamless encryption using KMS
++ Serverless, scalable, durable, easy SDK, free
++ version tracking of configurations/secrets
++ configuration management using path & IAM
++ notifications with CloudWatch Events
++ Integration with CloudFormation
 
+## AWS STS - Security Token Service
++ Allows to grant limited and temporary access to AWS resources
++ Token is valid for up to one hour (must be refreshed)
++ Cross Account Access
+  + Allows users from one AWS account access resources in another
++ Federation (Active Directory)
+  + Provides a non-AWS user with temporary AWS acces by linking users Active Directory credentials
+  + Uses SAML - Security Assertion Markup Language
+  + Allows Single Sign On (SSO), enables users to login to AWS console without assigning IAM credentials
++ Federation with third party providers / Cognito
+  + used primarily in web and mobile application
+  + makes use of FB/Google/Amazon to federate them
+  + allows users outside of AWS to assume temporary role to access AWS resource
+  + users assume identity provided access role
+  + Federation assumes third party authentication
+    + LDAP
+    + Microsoft Active Directory (~= SAML)
+    + Single Sign on
+    + Open ID
+    + Cognito
   
+## AWS Shared Responsibility Model
+
+### AWS Responsibility - Security of the Cloud
+  + Protecting infrastructure (hardware,software,facilities, and networking) that runs all of the AWS services)
+  + Managed services like S3, DynamoDB, RDS etc
+  
+### Customer Responsibility - Security in the Cloud
+  + For EC2 instance, customer is responsible for management of the guest OS (including security patches and updates), firewall & network configuration, IAM etc
+  
+
 
