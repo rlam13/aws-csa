@@ -943,6 +943,31 @@ Files not versioned prior to enabling versioning will have version "null"
   
 ### Customer Responsibility - Security in the Cloud
   + For EC2 instance, customer is responsible for management of the guest OS (including security patches and updates), firewall & network configuration, IAM etc
-  
+
+### RDS Example
+  + AWS Resposibility:
+    + Manage the underlying EC2 instance, disable SSH
+    + Automated DB patching
+    + Automated OS patching
+    + Audit underlying instance and disks & guarantee it funtions
+  + Customer Responsiblity:
+    + Check the ports / IP / security group inbound rules in DB's SG
+    + In-database user creation and permissions
+    + Creating a database with or without public access
+    + Ensure parameter groups or DB is configured to only allow SSL connections
+    + Database encryption setting
+    
+### S3 Example
+  + AWS Responsibility
+    + Guarantee unlimited storage
+    + Guarantee encryption is available
+    + ensure separation of data between different customers
+    + ensure AWS employees can't access your data
+  + Customer Responsibility
+    + Bucket configuration
+    + Bucket policy / public setting
+    + IAM user and roles
+    + Enabling encryption
+
 
 
