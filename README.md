@@ -990,3 +990,55 @@ Files not versioned prior to enabling versioning will have version "null"
 + 192.168.0.0 - 192.168.255.255 (192.168.0.0/16) <-- Typical in home networks
 
 ### Virtual Private Cloud (VPC)
++ multiple VPC's per region ( max 5 per region, soft limit, increase via support ticket)
++ max CIDR per VPC is five. Each CIDR:
+  + min size /28 = 16 IP addresses
+  + max size /16 = 65536 IP addresses
++ because VPC is private, only the private IP ranges are allowed (see Prive IP section above)
++ **VPC CIDR should not overlap with other networks IE: corporate**
+
+### Subnets - IPv4
++ AWS reserves five IP's address (first four, and last IP address) in each subnet
+  + none of these are available for use and cannot be assigned to an instance
++ IE: CIDR block 10.0.0.0/24, reserved IP's are:
+  + 10.0.0.0: network address
+  + 10.0.0.1: reserved by AWS for the VPC router
+  + 10.0.0.2: reserved by AWS for mapping to Amazon provided DNS
+  + 10.0.0.3: reserved by AWS for future use
+  + 10.0.0.255: network broadcast address.  AWS doesn't support broadcast in a VPC, but address is still reserved
+  
+### Internet Gateways
++ Internet gateways allow VPC instances to conect to the internet
++ Scales horizontally and is HA / redundant
++ Created separately from VPC
++ one VPC can be attached to one IGW and vice versa
++ IGW also a NAT for instances that have public IPv4
++ IGW by itself does not allow internet access, route tables must also be edited
+
+#### NAT Instance
++ Allow instances in the private subnets to connect to the internet
++ must be launched in a public subnet
++ must be disable EC2 flag: source / destination check
++ must have elastic IP attached to it
++ route table must be configured to route traffic from private subnets to NAT instance
++ Amazon Linux AMI pre-configured are available
++ Not highly available / resilient setup out of the box
++ Would need to create ASG in multi AZ + resilient user-data script
++ Internet traffic bandwidth depends on EC2 instance performance
++ Must manage security groups & rules
+  + Inbound:
+    + allow HTTP / HTTPS traffic coming from private subnets
+    + allow SSH from your home network (access provided through IGW)
+  + Outbound:
+    + allow HTTP / HTTPS traffic to the internet
+
+#### NAT Gateway
++ AWS managed NAT, higher bandwidth, better availability, no admin
++ Pay by the hour for usage and bandwidth
++ NAT is created in a specific AZ, uses an EIP
++ Cannot be used by and instance in that subnet (only from other subnets)
++ Requires and IGW (Private Subnet => NAT => IGW)
++ 5Gbps of bandwidth with automatic scaling up to 45Gbps
++ No security group to manage / required
+
+
