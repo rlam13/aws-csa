@@ -969,5 +969,12 @@ Files not versioned prior to enabling versioning will have version "null"
     + IAM user and roles
     + Enabling encryption
 
+## VPC
+
+### CIDR
++ /32 allows for 1 IP = 2^0
++ /31 allows for 2 IP = 2^1
++ /30 allows for 4 IP = 2^2
++ /29 allows for 8 IP = 2^3
 
 
