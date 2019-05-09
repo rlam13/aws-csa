@@ -1035,10 +1035,9 @@ Files not versioned prior to enabling versioning will have version "null"
 #### NAT Gateway
 + AWS managed NAT, higher bandwidth, better availability, no admin
 + Pay by the hour for usage and bandwidth
-+ NAT is created in a specific AZ, uses an EIP
++ NAT is created in a specific AZ, uses an Elastic IP
 + Cannot be used by and instance in that subnet (only from other subnets)
 + Requires and IGW (Private Subnet => NAT => IGW)
 + 5Gbps of bandwidth with automatic scaling up to 45Gbps
 + No security group to manage / required
-
 
