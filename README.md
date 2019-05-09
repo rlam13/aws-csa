@@ -972,9 +972,21 @@ Files not versioned prior to enabling versioning will have version "null"
 ## VPC
 
 ### CIDR
-+ /32 allows for 1 IP = 2^0
-+ /31 allows for 2 IP = 2^1
-+ /30 allows for 4 IP = 2^2
-+ /29 allows for 8 IP = 2^3
++ /32 allows for 1 IP's = 2^0
++ /31 allows for 2 IP's = 2^1
++ /30 allows for 4 IP's = 2^2
++ /29 allows for 8 IP's = 2^3
++ /28 allows for 16 IP's = 2^4
++ /27 allows for 32 IP's = 2^5
++ /26 allows for 64 IP's = 2^6
++ /25 allows for 128 IP's = 2^7
++ /24 allows for 256 IP's = 2^8
++ /16 allows for 65,536 IP's = 2^16
++ /0 allows for all IP's = 2^32
 
+### Private IP
++ 10.0.0.0 - 10.255.255.255 (10.0.0.0/8) <-- big networks
++ 172.16.0.0 - 172.31.255.255 (172.16.0.0./12) <-- default AWS
++ 192.168.0.0 - 192.168.255.255 (192.168.0.0/16) <-- Typical in home networks
 
+### Virtual Private Cloud (VPC)
