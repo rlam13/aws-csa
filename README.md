@@ -1064,4 +1064,7 @@ Files not versioned prior to enabling versioning will have version "null"
   + AWS recommends adding rules by increment of 100
 + Newly created NACL will deny everything
   
-  
+#### Security Group vs NACL
+
+| Security Group |       NACL        |
+| --------       |    ----------     |
