@@ -1071,3 +1071,6 @@ Files not versioned prior to enabling versioning will have version "null"
 | Operates at instance level            |   Operates at the subnet level       |
 | Supports allows rules only            |   Supports allow and deny rules      |
 | Stateful: return traffic is automatically allowed regardless of rules | Stateless: Return traffic must be explicity allowed by rules |
+| Evaluate all rules before determining to allow traffic | Process rules in number order when determining to allow traffic |
+| Applies to instance if applied the security group at launch time or associates group with the instance later | Automatically applies to all instances within the subnet (Don't have to rely on users to specify the security group) |
+
