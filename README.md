@@ -1070,3 +1070,4 @@ Files not versioned prior to enabling versioning will have version "null"
 | --------                              |      ----------                      |
 | Operates at instance level            |   Operates at the subnet level       |
 | Supports allows rules only            |   Supports allow and deny rules      |
+| Stateful: return traffic is automatically allowed regardless of rules | Stateless: Return traffic must be explicity allowed by rules |
