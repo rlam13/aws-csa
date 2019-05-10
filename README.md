@@ -1041,3 +1041,27 @@ Files not versioned prior to enabling versioning will have version "null"
 + 5Gbps of bandwidth with automatic scaling up to 45Gbps
 + No security group to manage / required
 
+
+#### DNS Resolution in VPC
++ enableDnsSupport: (DNS Resolution setting)
+  + Default True
+  + Helps decide if DNS resolution is support for the VPC
+  + If true, queries the AWS DNS server at 169.254.169.253
++ enableDnsHostname: (DNS Hostname setting)
+  + False by default for newly created VPC, True by default for Default VPC
+  + Won't do anything unless enableDnsSupport = True
+  + If true, assign public hostname to EC2 instance if it has a public
+*If you use custom DNS domain names in a private zone in Route 53, you must set both attributes to true
+
+#### Network ACLs (NACL)
++ NACL is like a firewall, but applies to traffic for subnets
++ Default NACL allows everything inbound and outbound
++ One NACL per subnet, new subnets are assigned default NACL
++ Define NACL rules:
+  + Rules have a number (1-32766) and higher precedence with a lower number
+  + Eg If you define #100 ALLOW <IP> and #200 DENY <IP>, IP will be allowed
+  + Last rule is an asterisk (*) and denies a request in case of no rule match
+  + AWS recommends adding rules by increment of 100
++ Newly created NACL will deny everything
+  
+  
