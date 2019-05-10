@@ -1066,5 +1066,7 @@ Files not versioned prior to enabling versioning will have version "null"
   
 #### Security Group vs NACL
 
-| Security Group |       NACL        |
-| --------       |    ----------     |
+| Security Group                        |         NACL                         |
+| --------                              |      ----------                      |
+| Operates at instance level            |   Operates at the subnet level       |
+| Supports allows rules only            |   Supports allow and deny rules      |
