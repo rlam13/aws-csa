@@ -1074,3 +1074,7 @@ Files not versioned prior to enabling versioning will have version "null"
 | Evaluate all rules before determining to allow traffic | Process rules in number order when determining to allow traffic |
 | Applies to instance if applied the security group at launch time or associates group with the instance later | Automatically applies to all instances within the subnet (Don't have to rely on users to specify the security group) |
 
+#### VPC Peering
++ Connect two VPC's privately using AWS' network  (make them behave as same network)
++ Must not  have overlapping CIDR
++ Peering connection is not transitive.  (must be established for each VPC that needs to communicate with one each)
