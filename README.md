@@ -1131,3 +1131,5 @@ Files not versioned prior to enabling versioning will have version "null"
 + Egress only Internet Gateway allows IPv6 instances access to the internet, but will not be directly reachable by the internet
 + Edit route tables after creating Egress only Internet Gateway
 
+
+![alt text](https://github.com/rlam13/AWS-Cloud-Solutions-Architect/blob/master/screenshots/vpc.png)
