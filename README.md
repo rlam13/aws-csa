@@ -1078,3 +1078,56 @@ Files not versioned prior to enabling versioning will have version "null"
 + Connect two VPC's privately using AWS' network  (make them behave as same network)
 + Must not  have overlapping CIDR
 + Peering connection is not transitive.  (must be established for each VPC that needs to communicate with one each)
+
+#### Flow logs
++ Captures information about IP traffic going into your interfaces:
+  + VPC flow logs
+  + Subnet flow logs
+  + Elastic network interface flow logs
++ Helps to monitor & troubleshoot connectivity issues
++ Flow logs data can go to S3 / CloudWatch logs
++ Captures network information from AWS managed interfaces too: ELB, RDS, ElastiCache, Redshift, WorkSpaces
+
++ Syntax:
+  + <version> <account-id> <interface-id> <srcaddr> <dstaddr> <srcport> <dstport> <protocol> <packets> <bytes> <start> <end> <action> <log-status>
++ sraaddr, dstaddrs help identify problematic IP
++ srcport, dstport help identify poblematic ports
++ action: success or failure of the request due to security group / nacl
++ can be used for analytics on usage patterns or malicious behaviour
+
+#### Bastion Hosts
++ Use bastion host to SSH into ou private instances
++ Bastion hosts are connected to the public subnet which is then connected to all other private subnets
++ Bastion host security group must be tightened
+  + ensure the bastion host only has port 22 traffic from the IP(s) required
+
+#### Site to Site VPN
++ Virtual Private Gateway:
+  + VPN concentrator on the AWS side of the VPN connection
+  + VPGW is created and attached to the VPC from which you want to create the site to site VPN connection
+
++ Customer Gateway
+  + Software application or physical device on customer side of the VPN connection
+  + IP address:
+    + use static, internet-routable IP address for your customer gateway device
+    + If behind a CGW behind NAT (with NAT-T), use the public IP address of the NAT
+
+#### Direct Connect
++ Dedicated private connection from remote network to a VPC
++ Must be setup between DC and AWS Direct Connect locations
++ REquires a VPGW on VPC
++ Access public resources (S3) and private (EC2) on the same connection
++ Uses:
+  + Increase bandwidth throughput - work with large data sets - lower cost
+  + More consistent network experience - applications using real-time data feeds
+  + Hybrid environments (on-prem + cloud)
++ Supports IPv4 & IPv6
+
+#### Egress only Internet Gateway
++ Egress only Internet Gateway for IPv6 only
++ Similar function as a NAT (IPv4 only)
++ IPv6 are all public addresses
++ All instances with IPv6 are publicy accessible
++ Egress only Internet Gateway allows IPv6 instances access to the internet, but will not be directly reachable by the internet
++ Edit route tables after creating Egress only Internet Gateway
+
