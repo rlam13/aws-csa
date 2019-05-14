@@ -6,58 +6,56 @@ My AWS Cloud Solutions Architect study notes
 **Primary ones to focus on:  VPC, EC2, S3, EBS, ECS, LAMBDA, API, AutoScaling**
 
 ## EC2
-Timeout isses => security groups configuration?  
-Security groups can reference other security groups instead of ip ranges  
-Public IP (obvious)  
-* elastic IP (same as public IP, but consistent IP between stop and starts)
-Private IP (obvious)  
++ Timeout isses => security groups configuration?  
++ Security groups can reference other security groups instead of ip ranges  
++ Public IP (obvious)  
++ elastic IP (same as public IP, but consistent IP between stop and starts)
++ Private IP (obvious)  
    
-* EC2 launch modes  
-on demand  
-reserved  
-spot instances  
-dedicated  
++ EC2 launch modes  
+  + on demand  
+  + reserved  
+  + spot instances  
+  + dedicated  
    
-* Instance types:  
-R = Ram  
-C = CPU  
-M = Medium  
-I = IO  
-G = GPU  
-T2/T3 = Burst (or budget)  
++ Instance types:  
+  + R = Ram  
+  + C = CPU  
+  + M = Medium  
+  + I = IO  
+  + G = GPU  
+  + T2/T3 = Burst (or budget)  
 
 ## Amazon Machine Image (AMI)  
-Create AMI to pre-install software on for EC2 => faster boot/deployment of instances  
-AMI can be copeid across regions and accounts.  (default within region only)  
++ Create AMI to pre-install software on for EC2 => faster boot/deployment of instances  
++ AMI can be copeid across regions and accounts.  (default within region only)  
   
 * Instance placement groups  
-Cluster - close together, high performance (faster network), less redundancy  
-Spread - spread among multi-AZ's, more redundancy  
++ Cluster - close together, high performance (faster network), less redundancy  
++ Spread - spread among multi-AZ's, more redundancy  
 
 ## CLB / ALB / NLB
-* CLB - may still have questions regarding security groups and stickiness  
++ CLB - may still have questions regarding security groups and stickiness  
   
-* ALB  
-Support routing based on hostname (users.example.com & payments.example.com)  
-Support routing based on path (example.com/users & example.com/payments)  
++ ALB  
++ Support routing based on hostname (users.example.com & payments.example.com)  
++ Support routing based on path (example.com/users & example.com/payments)  
++ Support redirets (HTTP to HTTPS as example)  
++ Support dynamic host port mapping with ECS  
 
-
-Support redirets (HTTP to HTTPS as example)  
-Support dynamic host port mapping with ECS  
-
-* NLB (Layer 4) gets a static IP per AZ  
-Public facing: must attach Elastic IP - can help whitelist by clients  
-Private facing: will get random private IP base on free ones at time of creation  
-Has cross zone balancing  
-Has SSL termination (Jan 2019)  
++ NLB (Layer 4) gets a static IP per AZ  
++ Public facing: must attach Elastic IP - can help whitelist by clients  
++ Private facing: will get random private IP base on free ones at time of creation  
++ Has cross zone balancing  
++ Has SSL termination (Jan 2019)  
   
 *Restrict access to the EC2 instance by limiting security group source from the load balancer:*
 ![alt text](https://github.com/rlam13/AWS-Cloud-Solutions-Architect/blob/master/screenshots/load_balancer_security_groups.png)
 
-* SSL Certificates on load balancer  
-The load balancer uses a X.509 certificate (SSL/TLS server certificate)  
-Manage certificates using AWS Certificate Manager (ACM)  
-Alternatively create/upload own certificates
++ SSL Certificates on load balancer  
++ The load balancer uses a X.509 certificate (SSL/TLS server certificate)  
++ Manage certificates using AWS Certificate Manager (ACM)  
++ Alternatively create/upload own certificates
   
 HTTPS listener:  
 Must specify default certificate  
@@ -998,6 +996,7 @@ Files not versioned prior to enabling versioning will have version "null"
 + **VPC CIDR should not overlap with other networks IE: corporate**
 
 ### Subnets - IPv4
++ Tied to an AZ / need to define a CIDR
 + AWS reserves five IP's address (first four, and last IP address) in each subnet
   + none of these are available for use and cannot be assigned to an instance
 + IE: CIDR block 10.0.0.0/24, reserved IP's are:
@@ -1007,7 +1006,7 @@ Files not versioned prior to enabling versioning will have version "null"
   + 10.0.0.3: reserved by AWS for future use
   + 10.0.0.255: network broadcast address.  AWS doesn't support broadcast in a VPC, but address is still reserved
   
-### Internet Gateways
+### Internet Gateway
 + Internet gateways allow VPC instances to conect to the internet
 + Scales horizontally and is HA / redundant
 + Created separately from VPC
@@ -1051,6 +1050,7 @@ Files not versioned prior to enabling versioning will have version "null"
   + False by default for newly created VPC, True by default for Default VPC
   + Won't do anything unless enableDnsSupport = True
   + If true, assign public hostname to EC2 instance if it has a public
+
 *If you use custom DNS domain names in a private zone in Route 53, you must set both attributes to true
 
 #### Network ACLs (NACL)
@@ -1063,6 +1063,7 @@ Files not versioned prior to enabling versioning will have version "null"
   + Last rule is an asterisk (*) and denies a request in case of no rule match
   + AWS recommends adding rules by increment of 100
 + Newly created NACL will deny everything
++ Do not forget to include ephemeral ports
   
 #### Security Group vs NACL
 
