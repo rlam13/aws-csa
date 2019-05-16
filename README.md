@@ -57,17 +57,17 @@ My AWS Cloud Solutions Architect study notes
 + Manage certificates using AWS Certificate Manager (ACM)  
 + Alternatively create/upload own certificates
   
-HTTPS listener:  
-Must specify default certificate  
-Optional - add list of certs to support multiple domains
-Clients can use Server Name Indication (SNI) to specify the hostname they reach  
-Able to specify security policy to support older versions of SSL/TLS (for legacy clients)  
++ HTTPS listener:  
++ Must specify default certificate  
++ Optional - add list of certs to support multiple domains
++ Clients can use Server Name Indication (SNI) to specify the hostname they reach  
++ Able to specify security policy to support older versions of SSL/TLS (for legacy clients)  
 
   
 ## ASG
-ASG Default Termination Policy:  
-1. Find AZ with most instances
-2. If multiple instances in AZ, delete the one with oldest launch configuration  
++ ASG Default Termination Policy:  
+  + Find AZ with most instances
+  + If multiple instances in AZ, delete the one with oldest launch configuration  
   
 * Scaling cooldown  
 Ensures that ASG doesn't launch/terminate instances before previous scaling activity  
@@ -676,6 +676,9 @@ Files not versioned prior to enabling versioning will have version "null"
      + Encryption at rest - KMS
      + Possible to encrypt/decrypt on client side (more difficult)
      +VPC Endpoints available for Kinesis to access within VPC
+
+
+![alt text](https://github.com/rlam13/AWS-Cloud-Solutions-Architect/blob/master/screenshots/sqs_sns_kinesis.png)
      
 
  ## Amazon MQ
@@ -1133,4 +1136,6 @@ Files not versioned prior to enabling versioning will have version "null"
 + Edit route tables after creating Egress only Internet Gateway
 
 
-![alt text](https://github.com/rlam13/AWS-Cloud-Solutions-Architect/blob/master/screenshots/vpc.png)
+## Disaster Recovery
+
+![alt text](https://github.com/rlam13/AWS-Cloud-Solutions-Architect/blob/master/screenshots/dr_strategy.png)
