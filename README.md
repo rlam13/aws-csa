@@ -1139,3 +1139,19 @@ Files not versioned prior to enabling versioning will have version "null"
 ## Disaster Recovery
 
 ![alt text](https://github.com/rlam13/AWS-Cloud-Solutions-Architect/blob/master/screenshots/dr_strategy.png)
+
++ Backup and Recovery
+  + classic method of backup - backups are created and stored securely and off-site.
+
++ Pilot Light
+  + similar to backup and restore
+  + faster than backup and restore as critical systems are already operational
+
++ Warm Standby
+  + Full system operational, but minimal size
+  + Upon disaster, backup scales to production load
+
++ Multi Site / Hot Site Approach
+  + Very low RTO (minutes or seconds), very expensive
+  + Full production scale is operating in AWS and On Premise
+
